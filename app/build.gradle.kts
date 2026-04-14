@@ -15,6 +15,14 @@ android {
     }
     buildFeatures { compose = true }
     composeOptions { kotlinCompilerExtensionVersion = "1.5.1" }
+    testOptions{
+        unitTests.all {
+            (this as? Test)?.useJUnitPlatform()
+        }
+    }
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 dependencies {
@@ -30,4 +38,5 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     testImplementation(libs.junit.jupiter)
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher") // The engine is required at runtime to find tests
 }
