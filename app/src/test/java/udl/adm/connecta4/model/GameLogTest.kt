@@ -1,77 +1,78 @@
 package udl.adm.connecta4.model
 
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class GameLogTest {
 
     @Test
     fun `buildLog PlayerWins with timeRemaining`() {
-        // Verify that when result is GameState.PlayerWins and timeRemaining is not null, the output 
-        // includes 'Has guanyat !!' followed by the 'Han sobrat' line with correct seconds.
-        // TODO implement test
+        val gameLog = GameLog("User", 7, 60, 15, GameState.PlayerWins)
+        val expected = "Alias: User\nMida graella: 7\nTemps Total: 60 secs.\n\nHas guanyat !!\nHan sobrat 15 secs. !"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog PlayerWins without timeRemaining`() {
-        // Verify that when result is GameState.PlayerWins and timeRemaining is null, the output 
-        // includes 'Has guanyat !!' but omits the line regarding remaining time.
-        // TODO implement test
+        val gameLog = GameLog("User", 7, 60, null, GameState.PlayerWins)
+        val expected = "Alias: User\nMida graella: 7\nTemps Total: 60 secs.\n\nHas guanyat !!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog SystemWins status`() {
-        // Verify that when result is GameState.SystemWins, the string includes the header information 
-        // followed specifically by 'Has perdut !!\n'.
-        // TODO implement test
+        val gameLog = GameLog("User", 6, 30, null, GameState.SystemWins)
+        val expected = "Alias: User\nMida graella: 6\nTemps Total: 30 secs.\n\nHas perdut !!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog Draw status`() {
-        // Verify that when result is GameState.Draw, the string includes the header information 
-        // followed specifically by 'Heu empatat !!\n'.
-        // TODO implement test
+        val gameLog = GameLog("User", 8, 120, null, GameState.Draw)
+        val expected = "Alias: User\nMida graella: 8\nTemps Total: 120 secs.\n\nHeu empatat !!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog TimeOut status`() {
-        // Verify that when result is GameState.TimeOut, the string includes the header information 
-        // followed specifically by 'Has esgotat el temps!!\n'.
-        // TODO implement test
+        val gameLog = GameLog("User", 7, 45, 0, GameState.TimeOut)
+        val expected = "Alias: User\nMida graella: 7\nTemps Total: 45 secs.\n\nHas esgotat el temps!!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog with empty alias string`() {
-        // Check if the function correctly formats the 'Alias:' line when an empty string is 
-        // provided, ensuring no null pointer exceptions occur.
-        // TODO implement test
+        val gameLog = GameLog("", 7, 60, null, GameState.Draw)
+        val expected = "Alias: \nMida graella: 7\nTemps Total: 60 secs.\n\nHeu empatat !!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog with alias containing newline characters`() {
-        // Test the behavior when the alias contains newline characters to see if it 
-        // breaks the expected log format or concatenation logic.
-        // TODO implement test
+        val gameLog = GameLog("User\nName", 7, 60, null, GameState.Draw)
+        val expected = "Alias: User\nName\nMida graella: 7\nTemps Total: 60 secs.\n\nHeu empatat !!\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog with maximum integer values`() {
-        // Verify that the StringBuilder correctly handles Int.MAX_VALUE for size, timeTotal, 
-        // and timeRemaining without overflow in the string representation.
-        // TODO implement test
+        val gameLog = GameLog("User", Int.MAX_VALUE, Int.MAX_VALUE, Int.MAX_VALUE, GameState.PlayerWins)
+        val expected = "Alias: User\nMida graella: ${Int.MAX_VALUE}\nTemps Total: ${Int.MAX_VALUE} secs.\n\nHas guanyat !!\nHan sobrat ${Int.MAX_VALUE} secs. !"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog with zero or negative time values`() {
-        // Ensure that the function handles 0 or negative values for timeTotal and timeRemaining 
-        // appropriately, rendering them as provided in the resulting string.
-        // TODO implement test
+        val gameLog = GameLog("User", 0, -10, -5, GameState.PlayerWins)
+        val expected = "Alias: User\nMida graella: 0\nTemps Total: -10 secs.\n\nHas guanyat !!\nHan sobrat -5 secs. !"
+        assertEquals(expected, gameLog.buildLog())
     }
 
     @Test
     fun `buildLog with unhandled GameState branch`() {
-        // Test the 'else' branch of the result 'when' expression by providing a 
-        // GameState implementation that doesn't match the specific handled cases.
-        // TODO implement test
+        val gameLog = GameLog("User", 7, 60, null, GameState.Ongoing)
+        val expected = "Alias: User\nMida graella: 7\nTemps Total: 60 secs.\n\n"
+        assertEquals(expected, gameLog.buildLog())
     }
 
 }
