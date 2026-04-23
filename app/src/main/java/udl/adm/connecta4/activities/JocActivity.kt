@@ -4,31 +4,44 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.JocScreen
+import udl.adm.connecta4.viewmodel.GameViewModel
+import kotlin.properties.Delegates
 
 class JocActivity : ComponentActivity() {
+
+    private lateinit var a :String
+    private var s by Delegates.notNull<Int>()
+    private var h by Delegates.notNull<Boolean>()
+    private var m by Delegates.notNull<Int>()
+
+    private val jocViewModel : GameViewModel by viewModels {
+        GameViewModel.Factory(a,s,h,m)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        val alias = intent.getStringExtra("ALIAS") ?: "p1"
-        val size = intent.getIntExtra("SIZE", 7)
-        val hasTime = intent.getBooleanExtra("HAS_TIME", false)
-        val maxTime = intent.getIntExtra("MAX_TIME", 25)
+        a = intent.getStringExtra("ALIAS") ?: "p1"
+        s = intent.getIntExtra("SIZE", 7)
+        h = intent.getBooleanExtra("HAS_TIME", false)
+        m = intent.getIntExtra("MAX_TIME", 25)
 
         setContent {
-            JocScreen(
-                alias = alias, size = size, hasTime = hasTime, maxTime = maxTime,
-                onGameEnd = { log ->
-                    val intent = Intent(this, ResultatsActivity::class.java).apply {
-                        putExtra("LOG_DATA", log)
-                        // Clear this activity from stack so back button doesn't return to a finished game
-                        flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
+            Connecta4Theme() {
+                JocScreen(
+                    viewModel = jocViewModel,
+                    onGameEnd = { log ->
+                        val intent = Intent(this, ResultatsActivity::class.java).apply {
+                            putExtra("LOG_DATA", log)
+                        }
+                        startActivity(intent)
+                        finish()
                     }
-                    startActivity(intent)
-                    finish()
-                }
-            )
+                )
+            }
         }
     }
 }

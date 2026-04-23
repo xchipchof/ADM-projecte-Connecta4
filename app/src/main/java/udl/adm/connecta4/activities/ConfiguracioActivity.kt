@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.viewmodel.compose.viewModel
 import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.ConfiguracioScreen
-import udl.adm.connecta4.viewmodel.ConfiguracioViewModel
 
 
 class ConfiguracioActivity : ComponentActivity() {
@@ -15,9 +14,9 @@ class ConfiguracioActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Connecta4Theme {
-                val configVm: ConfiguracioViewModel = viewModel()
+
                 ConfiguracioScreen(
-                    configViewModel = configVm,
+                    configViewModel = viewModel(),
                     onStartGame = { alias, size, hasTime, maxTime ->
                         val intent = Intent(this, JocActivity::class.java).apply {
                             putExtra("ALIAS", alias)

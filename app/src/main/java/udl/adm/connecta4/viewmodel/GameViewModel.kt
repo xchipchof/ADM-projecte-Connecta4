@@ -21,7 +21,7 @@ class GameViewModel(
     val maxTime: Int
 ) : ViewModel() {
 
-    // Pattern: public getter (val), private setter
+
     var board by mutableStateOf(Board(size))
         private set
 
@@ -50,7 +50,6 @@ class GameViewModel(
         if (gameState != GameState.Ongoing || !isPlayerTurn) return
 
         if (board.dropPiece(col, CellState.PLAYER)) {
-            // Trigger recomposition by re-assigning the reference
             board = board
 
             if (board.checkWin(CellState.PLAYER)) {
@@ -86,7 +85,18 @@ class GameViewModel(
         return GameLog(alias, size, timeElapsed, remaining, gameState).buildLog()
     }
 
-    class Factory(private val a: String, private val s: Int, private val h: Boolean, private val m: Int) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = GameViewModel(a, s, h, m) as T
+    class Factory(
+        private val alias: String,
+        private val size: Int,
+        private val hasTime: Boolean,
+        private val maxTime: Int
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(GameViewModel::class.java)){
+                @Suppress("UNCHECKED_CAST")
+                return GameViewModel(alias, size, hasTime, maxTime) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 }
