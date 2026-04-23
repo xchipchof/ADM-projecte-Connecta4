@@ -15,24 +15,49 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import udl.adm.connecta4.ui.Connecta4Theme
+import udl.adm.connecta4.viewmodel.ConfiguracioViewModel
+
 
 @Composable
-fun ConfiguracioScreen(onStartGame: (String, Int, Boolean, Int) -> Unit) {
-    var alias by remember { mutableStateOf("p1") }
-    var size by remember { mutableStateOf(7) }
-    var hasTime by remember { mutableStateOf(false) }
-    var maxTime by remember { mutableStateOf("25") }
+fun ConfiguracioScreen(configViewModel : ConfiguracioViewModel, onStartGame: (String, Int, Boolean, Int) -> Unit) {
+    var alias : String = configViewModel.alias
+    var size : Int = configViewModel.size
+    var hasTime : Boolean = configViewModel.hasTime
+    var maxTime : String = configViewModel.maxTime
 
+    ConfiguracioContent(
+        alias,
+        size,
+        hasTime,
+        maxTime,
+        aliasChanger = { configViewModel.onAliasChange(it) },
+        sizeChanger = {configViewModel.onSizeChange(it)},
+        hasTimeChanger = {configViewModel.onHasTimeChange(it)},
+        maxTimeChanger = {configViewModel.onMaxTimeChange(it)},
+        onStartGame = onStartGame
+        )
+
+}
+
+@Composable
+fun ConfiguracioContent(
+    alias: String,
+    size: Int,
+    hasTime: Boolean,
+    maxTime: String,
+    aliasChanger : (String) -> Unit,
+    sizeChanger : (Int) -> Unit,
+    hasTimeChanger : (Boolean) -> Unit,
+    maxTimeChanger : (String) -> Unit,
+    onStartGame: (String, Int, Boolean, Int) -> Unit
+){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,14 +65,14 @@ fun ConfiguracioScreen(onStartGame: (String, Int, Boolean, Int) -> Unit) {
     ) {
         Text("CONFIGURACIÓ", style = MaterialTheme.typography.headlineMedium)
 
-        AliasTextField(alias = alias) { alias = it }
+        AliasTextField(alias = alias, onValueChange = aliasChanger )
 
-        GridSizeSelectionBlock(size = size) { opt -> size = opt }
+        GridSizeSelectionBlock(size = size, onValueChange = sizeChanger)
 
 
-        TimeControlOption(hasTime) { hasTime = it }
+        TimeControlOption(hasTime, onCheckedChange = hasTimeChanger)
 
-        TimeControlTextField(hasTime, maxTime) { maxTime = it }
+        TimeControlTextField(hasTime, maxTime, onValueChange = maxTimeChanger)
 
         Spacer(Modifier.weight(1f))
         Button(
@@ -76,7 +101,7 @@ fun AliasTextField(alias: String, onValueChange: (String) -> Unit) {
 @Composable
 fun GridSizeSelectionBlock(size: Int, onValueChange: (Int) -> Unit) {
     Spacer(Modifier.height(16.dp))
-    Column() {
+    Column {
         Text("Mida graella", modifier = Modifier.padding(10.dp))
         Row {
             listOf(7, 6, 5).forEach { opt ->
@@ -123,6 +148,6 @@ fun GridSizeSelectionBlockPreview() {
 @Composable
 fun ConfiguracioScreenPreview() {
     Connecta4Theme {
-        ConfiguracioScreen(onStartGame = { _, _, _, _ -> })
+        ConfiguracioScreen(viewModel(),onStartGame = { _, _, _, _ -> })
     }
 }
