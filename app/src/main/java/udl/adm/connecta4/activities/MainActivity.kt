@@ -1,4 +1,4 @@
-package udl.adm.connecta4
+package udl.adm.connecta4.activities
 
 import android.os.Bundle
 import android.content.Intent

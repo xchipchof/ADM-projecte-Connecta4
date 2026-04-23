@@ -1,4 +1,4 @@
-package udl.adm.connecta4
+package udl.adm.connecta4.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ class JocActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Retrieve data passed via Intent
+
         val alias = intent.getStringExtra("ALIAS") ?: "p1"
         val size = intent.getIntExtra("SIZE", 7)
         val hasTime = intent.getBooleanExtra("HAS_TIME", false)

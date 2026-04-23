@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Connecta4">
 
-        <activity android:name="udl.adm.connecta4.MainActivity" android:exported="true">
+        <activity android:name="udl.adm.connecta4.activities.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="udl.adm.connecta4.AjudaActivity" />
-        <activity android:name="udl.adm.connecta4.ConfiguracioActivity" />
-        <activity android:name="udl.adm.connecta4.JocActivity" />
-        <activity android:name="udl.adm.connecta4.ResultatsActivity" />
+        <activity android:name="udl.adm.connecta4.activities.AjudaActivity" />
+        <activity android:name="udl.adm.connecta4.activities.ConfiguracioActivity" />
+        <activity android:name="udl.adm.connecta4.activities.JocActivity" />
+        <activity android:name="udl.adm.connecta4.activities.ResultatsActivity" />
 
     </application>
 
