@@ -14,7 +14,6 @@ class ConfiguracioActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Connecta4Theme {
-
                 ConfiguracioScreen(
                     configViewModel = viewModel(),
                     onStartGame = { alias, size, hasTime, maxTime ->
