@@ -27,10 +27,10 @@ import udl.adm.connecta4.viewmodel.ConfiguracioViewModel
 
 @Composable
 fun ConfiguracioScreen(configViewModel : ConfiguracioViewModel, onStartGame: (String, Int, Boolean, Int) -> Unit) {
-    var alias : String = configViewModel.alias
-    var size : Int = configViewModel.size
-    var hasTime : Boolean = configViewModel.hasTime
-    var maxTime : String = configViewModel.maxTime
+    val alias : String = configViewModel.alias
+    val size : Int = configViewModel.size
+    val hasTime : Boolean = configViewModel.hasTime
+    val maxTime : String = configViewModel.maxTime
 
     ConfiguracioContent(
         alias,

@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import udl.adm.connecta4.model.Board
 import udl.adm.connecta4.model.GameState
@@ -44,6 +47,7 @@ fun JocScreen(
 
 @Composable
 fun JocContent(
+    modifier: Modifier = Modifier,
     board: Board,
     isPlayerTurn: Boolean,
     timeElapsed: Int,
@@ -51,20 +55,44 @@ fun JocContent(
     maxTime: Int,
     onCellClick: (Int) -> Unit
 ) {
-    // STATELESS: No logic, just UI
-    Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        HeaderBar(isPlayerTurn, timeElapsed, hasTime, maxTime)
-        Spacer(Modifier.height(16.dp))
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        BoxWithConstraints {
-            val cellWidth = maxWidth / board.size
-            Column {
+        HeaderBar(isPlayerTurn, timeElapsed, hasTime, maxTime)
+        Spacer(Modifier.height(10.dp))
+
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f),
+            contentAlignment = Alignment.Center
+        ) {
+
+            val dimPx: Dp = if (maxWidth < maxHeight) {
+                maxWidth
+            } else {
+                maxHeight
+            }
+
+            val midaCasella : Dp = dimPx / board.size
+
+            Column(
+                modifier = modifier.size(dimPx),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 for (r in 0 until board.size) {
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        modifier = modifier.wrapContentSize(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         for (c in 0 until board.size) {
                             BoardCell(
                                 state = board.grid[r][c],
-                                size = cellWidth,
+                                size = midaCasella,
                                 onClick = { onCellClick(c) }
                             )
                         }

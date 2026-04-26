@@ -26,7 +26,7 @@ fun AjudaScreen(onBack: () -> Unit) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             "El joc consisteix en anar introduint fitxes en un tauler vertical...\n" +
-                    "Guanya qui alinea 4 consecutives (H, V o D).\n" +
+                    "Guanya qui alinea 4 consecutives (Horitzontal, Vertical o Diagonal).\n" +
                     "Tu ets el VERMELL, la màquina el GROC.",
             style = MaterialTheme.typography.bodyLarge
         )
