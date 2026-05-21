@@ -3,13 +3,16 @@ package udl.adm.connecta4.activities
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.AjudaScreen
 
 class AjudaActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AjudaScreen(onBack = { finish() })
+            Connecta4Theme {
+                AjudaScreen(onBack = { finish() })
+            }
         }
     }
 }

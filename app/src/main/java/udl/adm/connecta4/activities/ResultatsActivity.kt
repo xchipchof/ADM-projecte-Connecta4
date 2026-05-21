@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.ResultatsScreen
 import udl.adm.connecta4.viewmodel.ResultatsViewModel
 
@@ -18,18 +19,19 @@ class ResultatsActivity : ComponentActivity() {
         il = intent.getStringExtra("LOG_DATA") ?: ""
 
         setContent {
-            ResultatsScreen(
-                resViewModel = resViewModel,
-                log = il,
-                onNewGame = {
-                    val intent = Intent(this, ConfiguracioActivity::class.java)
-
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    finish()
-                },
-                onExit = { finishAffinity() }
-            )
+            Connecta4Theme {
+                ResultatsScreen(
+                    resViewModel = resViewModel,
+                    log = il,
+                    onNewGame = {
+                        val intent = Intent(this, ConfiguracioActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
+                        finish()
+                    },
+                    onExit = { finishAffinity() }
+                )
+            }
         }
     }
 }

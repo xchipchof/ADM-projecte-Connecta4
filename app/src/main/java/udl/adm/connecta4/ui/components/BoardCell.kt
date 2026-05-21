@@ -9,25 +9,45 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import udl.adm.connecta4.model.CellState
+import udl.adm.connecta4.ui.DiscRed
+import udl.adm.connecta4.ui.DiscYellow
+import udl.adm.connecta4.ui.HoleColor
 
 @Composable
 fun BoardCell(state: CellState, size: Dp, onClick: () -> Unit) {
-    val color = when (state) {
-        CellState.EMPTY -> Color.LightGray
-        CellState.PLAYER -> Color.Red
-        CellState.SYSTEM -> Color.Yellow
+    val discColor: Color? = when (state) {
+        CellState.EMPTY  -> null
+        CellState.PLAYER -> DiscRed
+        CellState.SYSTEM -> DiscYellow
     }
 
     Box(
         modifier = Modifier
             .size(size)
-            .padding(2.dp)
+            .padding(3.dp)
             .clip(CircleShape)
-            .background(color)
+            .background(
+                if (discColor != null)
+                    Brush.radialGradient(
+                        0.0f to discColor.copy(alpha = 0.9f),
+                        0.6f to discColor,
+                        1.0f to Color(
+                            red   = discColor.red   * 0.55f,
+                            green = discColor.green * 0.55f,
+                            blue  = discColor.blue  * 0.55f
+                        )
+                    )
+                else
+                    Brush.radialGradient(
+                        0.0f to Color(0xFF1A1A38),
+                        1.0f to HoleColor
+                    )
+            )
             .clickable { onClick() }
     )
 }
