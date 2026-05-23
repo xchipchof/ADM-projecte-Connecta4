@@ -50,7 +50,7 @@ class ResultatsActivity : ComponentActivity() {
                             finish()
                         }
                     },
-                    onExit = { finishAffinity() }
+                    onExit = { finish() }
                 )
             }
         }
