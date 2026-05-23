@@ -14,8 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -41,7 +45,9 @@ import udl.adm.connecta4.ui.NavyDeep
 fun MenuPrincipalScreen(
     onAjudaClick: () -> Unit,
     onComencarClick: () -> Unit,
-    onExitClick: () -> Unit
+    onExitClick: () -> Unit,
+    onConfigClick: () -> Unit,
+    onHistorialClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -50,13 +56,26 @@ fun MenuPrincipalScreen(
                 Brush.verticalGradient(
                     colors = listOf(NavyDeep, Color(0xFF0E1040), NavyDeep)
                 )
-            ),
-        contentAlignment = Alignment.Center
+            )
     ) {
+        IconButton(
+            onClick = onConfigClick,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(8.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Settings,
+                contentDescription = "Preferències",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 40.dp),
+                .padding(horizontal = 40.dp)
+                .align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -132,6 +151,24 @@ fun MenuPrincipalScreen(
                 )
             }
 
+            Spacer(Modifier.height(8.dp))
+
+            OutlinedButton(
+                onClick = onHistorialClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = MaterialTheme.colorScheme.secondary
+                )
+            ) {
+                Text(
+                    "CONSULTAR PARTIDES",
+                    style = MaterialTheme.typography.labelLarge.copy(letterSpacing = 2.sp)
+                )
+            }
+
             Spacer(Modifier.height(4.dp))
 
             TextButton(
@@ -173,6 +210,6 @@ private fun TokenRow() {
 @Composable
 fun MenuPrincipalScreenPreview() {
     Connecta4Theme {
-        MenuPrincipalScreen({}, {}, {})
+        MenuPrincipalScreen({}, {}, {}, {}, {})
     }
 }
