@@ -22,6 +22,8 @@
         <activity android:name="udl.adm.connecta4.activities.ConfiguracioActivity" />
         <activity android:name="udl.adm.connecta4.activities.JocActivity" />
         <activity android:name="udl.adm.connecta4.activities.ResultatsActivity" />
+        <activity android:name="udl.adm.connecta4.activities.HistorialActivity" />
+        <activity android:name="udl.adm.connecta4.activities.ResultatDetailActivity" />
 
     </application>
 
