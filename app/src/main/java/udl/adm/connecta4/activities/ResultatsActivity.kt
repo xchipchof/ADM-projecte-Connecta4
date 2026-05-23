@@ -5,6 +5,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import udl.adm.connecta4.data.UserPreferences
+import udl.adm.connecta4.data.dataStore
 import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.ResultatsScreen
 import udl.adm.connecta4.viewmodel.ResultatsViewModel
@@ -12,8 +17,8 @@ import udl.adm.connecta4.viewmodel.ResultatsViewModel
 class ResultatsActivity : ComponentActivity() {
 
     private lateinit var il: String
+    private val resViewModel: ResultatsViewModel by viewModels()
 
-    private val resViewModel: ResultatsViewModel by viewModels { ResultatsViewModel.Factory(initLog = il) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         il = intent.getStringExtra("LOG_DATA") ?: ""
@@ -21,13 +26,29 @@ class ResultatsActivity : ComponentActivity() {
         setContent {
             Connecta4Theme {
                 ResultatsScreen(
-                    resViewModel = resViewModel,
-                    log = il,
+                    resViewModel  = resViewModel,
+                    log           = il,
+                    onConfigClick = {
+                        startActivity(Intent(this, ConfiguracioActivity::class.java))
+                    },
                     onNewGame = {
-                        val intent = Intent(this, ConfiguracioActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                        startActivity(intent)
-                        finish()
+                        lifecycleScope.launch {
+                            val prefs   = dataStore.data.first()
+                            val alias   = prefs[UserPreferences.ALIAS_KEY]     ?: "Jugador"
+                            val size    = prefs[UserPreferences.GRID_SIZE_KEY] ?: 7
+                            val hasTime = prefs[UserPreferences.HAS_TIME_KEY]  ?: false
+                            val maxTime = prefs[UserPreferences.MAX_TIME_KEY]  ?: 25
+                            startActivity(
+                                Intent(this@ResultatsActivity, JocActivity::class.java).apply {
+                                    putExtra("ALIAS",    alias)
+                                    putExtra("SIZE",     size)
+                                    putExtra("HAS_TIME", hasTime)
+                                    putExtra("MAX_TIME", maxTime)
+                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                }
+                            )
+                            finish()
+                        }
                     },
                     onExit = { finishAffinity() }
                 )
