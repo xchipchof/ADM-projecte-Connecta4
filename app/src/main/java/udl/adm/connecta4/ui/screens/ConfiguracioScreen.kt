@@ -38,17 +38,17 @@ import udl.adm.connecta4.viewmodel.ConfiguracioViewModel
 
 
 @Composable
-fun ConfiguracioScreen(configViewModel: ConfiguracioViewModel, onStartGame: (String, Int, Boolean, Int) -> Unit) {
+fun ConfiguracioScreen(configViewModel: ConfiguracioViewModel, onSave: () -> Unit) {
     ConfiguracioContent(
-        alias = configViewModel.alias,
-        size = configViewModel.size,
-        hasTime = configViewModel.hasTime,
-        maxTime = configViewModel.maxTime,
-        aliasChanger = { configViewModel.onAliasChange(it) },
-        sizeChanger = { configViewModel.onSizeChange(it) },
+        alias          = configViewModel.alias,
+        size           = configViewModel.size,
+        hasTime        = configViewModel.hasTime,
+        maxTime        = configViewModel.maxTime,
+        aliasChanger   = { configViewModel.onAliasChange(it) },
+        sizeChanger    = { configViewModel.onSizeChange(it) },
         hasTimeChanger = { configViewModel.onHasTimeChange(it) },
         maxTimeChanger = { configViewModel.onMaxTimeChange(it) },
-        onStartGame = onStartGame
+        onSave         = { configViewModel.savePreferences(onSave) }
     )
 }
 
@@ -62,7 +62,7 @@ fun ConfiguracioContent(
     sizeChanger: (Int) -> Unit,
     hasTimeChanger: (Boolean) -> Unit,
     maxTimeChanger: (String) -> Unit,
-    onStartGame: (String, Int, Boolean, Int) -> Unit
+    onSave: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -80,7 +80,7 @@ fun ConfiguracioContent(
             )
         )
         Text(
-            "Configura la teva partida",
+            "Preferències de la partida",
             style = MaterialTheme.typography.bodySmall.copy(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 letterSpacing = 1.sp
@@ -118,10 +118,7 @@ fun ConfiguracioContent(
         Spacer(Modifier.weight(1f))
 
         Button(
-            onClick = {
-                val time = maxTime.toIntOrNull() ?: 25
-                onStartGame(alias.ifBlank { "Jugador" }, size, hasTime, time)
-            },
+            onClick = onSave,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp),
@@ -132,7 +129,7 @@ fun ConfiguracioContent(
             )
         ) {
             Text(
-                "COMENÇAR PARTIDA",
+                "DESAR PREFERÈNCIES",
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp
@@ -261,6 +258,6 @@ fun GridSizeSelectionBlockPreview() {
 @Composable
 fun ConfiguracioScreenPreview() {
     Connecta4Theme {
-        ConfiguracioScreen(viewModel(), onStartGame = { _, _, _, _ -> })
+        ConfiguracioScreen(viewModel(), onSave = {})
     }
 }
