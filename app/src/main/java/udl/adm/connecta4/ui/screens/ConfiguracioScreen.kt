@@ -41,15 +41,15 @@ import udl.adm.connecta4.viewmodel.ConfiguracioViewModel
 @Composable
 fun ConfiguracioScreen(configViewModel: ConfiguracioViewModel, onSave: () -> Unit) {
     ConfiguracioContent(
-        alias          = configViewModel.alias,
-        size           = configViewModel.size,
-        hasTime        = configViewModel.hasTime,
-        maxTime        = configViewModel.maxTime,
-        aliasChanger   = { configViewModel.onAliasChange(it) },
-        sizeChanger    = { configViewModel.onSizeChange(it) },
+        alias = configViewModel.alias,
+        size = configViewModel.size,
+        hasTime = configViewModel.hasTime,
+        maxTime = configViewModel.maxTime,
+        aliasChanger = { configViewModel.onAliasChange(it) },
+        sizeChanger = { configViewModel.onSizeChange(it) },
         hasTimeChanger = { configViewModel.onHasTimeChange(it) },
         maxTimeChanger = { configViewModel.onMaxTimeChange(it) },
-        onSave         = { configViewModel.savePreferences(onSave) }
+        onSave = { configViewModel.savePreferences(onSave) }
     )
 }
 

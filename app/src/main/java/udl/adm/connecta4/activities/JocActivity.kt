@@ -7,10 +7,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import kotlin.properties.Delegates
 import udl.adm.connecta4.ui.Connecta4Theme
 import udl.adm.connecta4.ui.screens.JocScreen
 import udl.adm.connecta4.viewmodel.GameViewModel
+import kotlin.properties.Delegates
 
 class JocActivity : ComponentActivity() {
 
@@ -26,8 +26,8 @@ class JocActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        a = intent.getStringExtra("ALIAS")   ?: "Jugador"
-        s = intent.getIntExtra("SIZE",     7)
+        a = intent.getStringExtra("ALIAS") ?: "Jugador"
+        s = intent.getIntExtra("SIZE", 7)
         h = intent.getBooleanExtra("HAS_TIME", false)
         m = intent.getIntExtra("MAX_TIME", 25)
 
@@ -36,9 +36,9 @@ class JocActivity : ComponentActivity() {
             Connecta4Theme {
                 val windowSizeClass = calculateWindowSizeClass(this)
                 JocScreen(
-                    viewModel       = jocViewModel,
+                    viewModel = jocViewModel,
                     windowSizeClass = windowSizeClass,
-                    onGameEnd       = { log ->
+                    onGameEnd = { log ->
                         startActivity(
                             Intent(this, ResultatsActivity::class.java).apply {
                                 putExtra("LOG_DATA", log)

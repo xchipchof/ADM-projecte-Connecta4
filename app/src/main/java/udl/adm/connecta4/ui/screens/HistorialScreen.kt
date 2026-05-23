@@ -65,9 +65,9 @@ fun HistorialScreen(
         ) {
             IconButton(onClick = onBack) {
                 Icon(
-                    imageVector        = Icons.Filled.ArrowBack,
+                    imageVector = Icons.Filled.ArrowBack,
                     contentDescription = "Enrere",
-                    tint               = MaterialTheme.colorScheme.onBackground
+                    tint = MaterialTheme.colorScheme.onBackground
                 )
             }
             Spacer(Modifier.width(4.dp))
@@ -75,15 +75,15 @@ fun HistorialScreen(
                 Text(
                     "HISTORIAL",
                     style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight    = FontWeight.Black,
+                        fontWeight = FontWeight.Black,
                         letterSpacing = 4.sp,
-                        color         = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
                 Text(
                     "Partides anteriors",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color         = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         letterSpacing = 1.sp
                     )
                 )
@@ -98,9 +98,9 @@ fun HistorialScreen(
                     }
                     items(games) { record ->
                         GameRecordListItem(
-                            record     = record,
+                            record = record,
                             isSelected = record == viewModel.selectedRecord,
-                            onClick    = { viewModel.selectRecord(record) }
+                            onClick = { viewModel.selectRecord(record) }
                         )
                     }
                 }
@@ -117,12 +117,12 @@ fun HistorialScreen(
                     if (selected != null) {
                         ResultatDetailScreen(
                             logText = selected.logText,
-                            date    = selected.date,
-                            onBack  = null
+                            date = selected.date,
+                            onBack = null
                         )
                     } else {
                         Box(
-                            modifier         = Modifier.fillMaxSize(),
+                            modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -142,9 +142,9 @@ fun HistorialScreen(
                 }
                 items(games) { record ->
                     GameRecordListItem(
-                        record     = record,
+                        record = record,
                         isSelected = false,
-                        onClick    = { onRecordClick(record) }
+                        onClick = { onRecordClick(record) }
                     )
                 }
             }
@@ -170,14 +170,14 @@ private fun GameRecordListItem(
         color = if (isSelected) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
     ) {
         Row(
-            modifier          = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     record.date,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color      = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
                     )
                 )
@@ -185,7 +185,7 @@ private fun GameRecordListItem(
                 Text(
                     record.result,
                     style = MaterialTheme.typography.labelSmall.copy(
-                        color         = resultColor(record.result),
+                        color = resultColor(record.result),
                         letterSpacing = 1.sp
                     )
                 )
@@ -196,17 +196,17 @@ private fun GameRecordListItem(
 
 @Composable
 private fun resultColor(result: String) = when (result) {
-    "Guanyada"      -> MaterialTheme.colorScheme.secondary
-    "Perduda"       -> MaterialTheme.colorScheme.error
-    "Empat"         -> MaterialTheme.colorScheme.onSurfaceVariant
+    "Guanyada" -> MaterialTheme.colorScheme.secondary
+    "Perduda" -> MaterialTheme.colorScheme.error
+    "Empat" -> MaterialTheme.colorScheme.onSurfaceVariant
     "Temps esgotat" -> MaterialTheme.colorScheme.error.copy(alpha = 0.7f)
-    else            -> MaterialTheme.colorScheme.onSurfaceVariant
+    else -> MaterialTheme.colorScheme.onSurfaceVariant
 }
 
 @Composable
 private fun EmptyHistorialMessage() {
     Box(
-        modifier         = Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(40.dp),
         contentAlignment = Alignment.Center

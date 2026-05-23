@@ -21,7 +21,7 @@ import udl.adm.connecta4.ui.HoleColor
 @Composable
 fun BoardCell(state: CellState, size: Dp, onClick: () -> Unit) {
     val discColor: Color? = when (state) {
-        CellState.EMPTY  -> null
+        CellState.EMPTY -> null
         CellState.PLAYER -> DiscRed
         CellState.SYSTEM -> DiscYellow
     }
@@ -37,9 +37,9 @@ fun BoardCell(state: CellState, size: Dp, onClick: () -> Unit) {
                         0.0f to discColor.copy(alpha = 0.9f),
                         0.6f to discColor,
                         1.0f to Color(
-                            red   = discColor.red   * 0.55f,
+                            red = discColor.red * 0.55f,
                             green = discColor.green * 0.55f,
-                            blue  = discColor.blue  * 0.55f
+                            blue = discColor.blue * 0.55f
                         )
                     )
                 else

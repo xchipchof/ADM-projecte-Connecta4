@@ -48,13 +48,13 @@ fun ResultatsScreen(
     onExit: () -> Unit,
 ) {
     ResultatsContent(
-        log          = log,
-        email        = resViewModel.email,
-        dateTime     = resViewModel.dateTime,
+        log = log,
+        email = resViewModel.email,
+        dateTime = resViewModel.dateTime,
         emailChanger = { resViewModel.onEmailChange(it) },
         onConfigClick = onConfigClick,
-        onNewGame    = onNewGame,
-        onExit       = onExit
+        onNewGame = onNewGame,
+        onExit = onExit
     ) { email: String, dateTime: String, context: Context ->
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
@@ -100,24 +100,24 @@ fun ResultatsContent(
                 Text(
                     "RESULTATS",
                     style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight    = FontWeight.Black,
+                        fontWeight = FontWeight.Black,
                         letterSpacing = 4.sp,
-                        color         = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
                 Text(
                     "Resum de la partida",
                     style = MaterialTheme.typography.bodySmall.copy(
-                        color         = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         letterSpacing = 1.sp
                     )
                 )
             }
             IconButton(onClick = onConfigClick) {
                 Icon(
-                    imageVector     = Icons.Filled.Settings,
+                    imageVector = Icons.Filled.Settings,
                     contentDescription = "Preferències",
-                    tint            = MaterialTheme.colorScheme.onSurfaceVariant
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -133,20 +133,20 @@ fun ResultatsContent(
         Spacer(Modifier.weight(1f))
 
         Button(
-            onClick  = onNewGame,
+            onClick = onNewGame,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp),
-            shape  = RoundedCornerShape(14.dp),
+            shape = RoundedCornerShape(14.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = BoardBlue,
-                contentColor   = Color.White
+                contentColor = Color.White
             )
         ) {
             Text(
                 "NOVA PARTIDA",
                 style = MaterialTheme.typography.labelLarge.copy(
-                    fontWeight    = FontWeight.Bold,
+                    fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp
                 )
             )
@@ -155,20 +155,20 @@ fun ResultatsContent(
         Spacer(Modifier.height(10.dp))
 
         Button(
-            onClick  = onExit,
+            onClick = onExit,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            shape  = RoundedCornerShape(14.dp),
+            shape = RoundedCornerShape(14.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.error.copy(alpha = 0.85f),
-                contentColor   = Color.White
+                contentColor = Color.White
             )
         ) {
             Text(
                 "SORTIR",
                 style = MaterialTheme.typography.labelLarge.copy(
-                    fontWeight    = FontWeight.Bold,
+                    fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp
                 )
             )
@@ -193,7 +193,7 @@ private fun ResultsCard(dateTime: String, log: String) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     "Data i hora:",
-                    style    = MaterialTheme.typography.labelMedium.copy(
+                    style = MaterialTheme.typography.labelMedium.copy(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     modifier = Modifier.width(100.dp)
@@ -201,7 +201,7 @@ private fun ResultsCard(dateTime: String, log: String) {
                 Text(
                     dateTime,
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color      = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
                     )
                 )
@@ -212,15 +212,15 @@ private fun ResultsCard(dateTime: String, log: String) {
             Spacer(Modifier.height(8.dp))
 
             OutlinedTextField(
-                value         = log,
+                value = log,
                 onValueChange = {},
-                readOnly      = true,
-                modifier      = Modifier
+                readOnly = true,
+                modifier = Modifier
                     .fillMaxWidth()
                     .height(140.dp),
-                shape  = RoundedCornerShape(10.dp),
+                shape = RoundedCornerShape(10.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor   = MaterialTheme.colorScheme.primary,
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
                 )
             )
@@ -247,31 +247,31 @@ private fun EmailCard(
             SectionLabelR("ENVIAR PER CORREU")
             Spacer(Modifier.height(8.dp))
             OutlinedTextField(
-                value         = email,
+                value = email,
                 onValueChange = emailChanger,
-                label         = { Text("Correu destinatari") },
-                singleLine    = true,
-                modifier      = Modifier.fillMaxWidth(),
-                shape         = RoundedCornerShape(10.dp),
-                colors        = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor   = MaterialTheme.colorScheme.primary,
+                label = { Text("Correu destinatari") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
                 )
             )
             Spacer(Modifier.height(10.dp))
             Button(
-                onClick  = { emailSender(email, dateTime, context) },
+                onClick = { emailSender(email, dateTime, context) },
                 modifier = Modifier.fillMaxWidth(),
-                shape    = RoundedCornerShape(10.dp),
-                colors   = ButtonDefaults.buttonColors(
+                shape = RoundedCornerShape(10.dp),
+                colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
-                    contentColor   = MaterialTheme.colorScheme.onPrimary
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(
                     "ENVIAR E-MAIL",
                     style = MaterialTheme.typography.labelMedium.copy(
-                        fontWeight    = FontWeight.Bold,
+                        fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
                     )
                 )
@@ -283,11 +283,11 @@ private fun EmailCard(
 @Composable
 private fun SectionLabelR(text: String) {
     Text(
-        text  = text,
+        text = text,
         style = MaterialTheme.typography.labelSmall.copy(
-            color         = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.primary,
             letterSpacing = 2.sp,
-            fontWeight    = FontWeight.Bold
+            fontWeight = FontWeight.Bold
         )
     )
 }

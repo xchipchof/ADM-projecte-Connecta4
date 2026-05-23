@@ -48,18 +48,18 @@ fun ResultatDetailScreen(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onBack) {
                     Icon(
-                        imageVector        = Icons.Filled.ArrowBack,
+                        imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Enrere",
-                        tint               = MaterialTheme.colorScheme.onBackground
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 Spacer(Modifier.width(4.dp))
                 Text(
                     "DETALL DE LA PARTIDA",
                     style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight    = FontWeight.Bold,
+                        fontWeight = FontWeight.Bold,
                         letterSpacing = 2.sp,
-                        color         = MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 )
             }
@@ -67,9 +67,9 @@ fun ResultatDetailScreen(
             Text(
                 "DETALL DE LA PARTIDA",
                 style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight    = FontWeight.Bold,
+                    fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp,
-                    color         = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             )
         }
@@ -78,7 +78,7 @@ fun ResultatDetailScreen(
         Text(
             date,
             style = MaterialTheme.typography.bodySmall.copy(
-                color         = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 letterSpacing = 1.sp
             )
         )
@@ -95,12 +95,12 @@ fun ResultatDetailScreen(
             color = MaterialTheme.colorScheme.surface
         ) {
             Text(
-                text     = logText,
+                text = logText,
                 modifier = Modifier
                     .padding(14.dp)
                     .verticalScroll(scrollState),
-                style    = MaterialTheme.typography.bodySmall.copy(
-                    color      = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.bodySmall.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontFamily = FontFamily.Monospace,
                     lineHeight = 20.sp
                 )

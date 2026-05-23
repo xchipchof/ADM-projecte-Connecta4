@@ -11,7 +11,8 @@ abstract class GameDatabase : RoomDatabase() {
     abstract fun gameDao(): GameDao
 
     companion object {
-        @Volatile private var INSTANCE: GameDatabase? = null
+        @Volatile
+        private var INSTANCE: GameDatabase? = null
 
         fun getDatabase(context: Context): GameDatabase =
             INSTANCE ?: synchronized(this) {

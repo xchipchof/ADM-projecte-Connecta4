@@ -29,9 +29,9 @@ class GameViewModel(
     val maxTime: Int
 ) : AndroidViewModel(application) {
 
-    private val db         = GameDatabase.getDatabase(application)
-    private val timeFmt    = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-    private val dateFmt    = SimpleDateFormat("d/M/yy, HH:mm", Locale.getDefault())
+    private val db = GameDatabase.getDatabase(application)
+    private val timeFmt = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+    private val dateFmt = SimpleDateFormat("d/M/yy, HH:mm", Locale.getDefault())
     private val logBuilder = StringBuilder()
 
     var board by mutableStateOf(Board(size))
@@ -78,9 +78,17 @@ class GameViewModel(
             appendEntry(col, alias, turnStartTime, endTime)
 
             when {
-                board.checkWin(CellState.PLAYER) -> { gameState = GameState.PlayerWins; saveGame() }
-                board.isFull()                   -> { gameState = GameState.Draw;        saveGame() }
-                else -> { isPlayerTurn = false; systemPlay() }
+                board.checkWin(CellState.PLAYER) -> {
+                    gameState = GameState.PlayerWins; saveGame()
+                }
+
+                board.isFull() -> {
+                    gameState = GameState.Draw; saveGame()
+                }
+
+                else -> {
+                    isPlayerTurn = false; systemPlay()
+                }
             }
         }
     }
@@ -95,8 +103,14 @@ class GameViewModel(
                 turnStartTime = now()
 
                 when {
-                    board.checkWin(CellState.SYSTEM) -> { gameState = GameState.SystemWins; saveGame() }
-                    board.isFull()                   -> { gameState = GameState.Draw;        saveGame() }
+                    board.checkWin(CellState.SYSTEM) -> {
+                        gameState = GameState.SystemWins; saveGame()
+                    }
+
+                    board.isFull() -> {
+                        gameState = GameState.Draw; saveGame()
+                    }
+
                     else -> isPlayerTurn = true
                 }
             }
@@ -125,14 +139,14 @@ class GameViewModel(
             val resultStr = when (gameState) {
                 is GameState.PlayerWins -> "Guanyada"
                 is GameState.SystemWins -> "Perduda"
-                is GameState.Draw       -> "Empat"
-                is GameState.TimeOut    -> "Temps esgotat"
+                is GameState.Draw -> "Empat"
+                is GameState.TimeOut -> "Temps esgotat"
                 else -> return@launch
             }
             db.gameDao().insert(
                 GameRecord(
-                    date    = dateFmt.format(Date()),
-                    result  = resultStr,
+                    date = dateFmt.format(Date()),
+                    result = resultStr,
                     logText = generateLog()
                 )
             )

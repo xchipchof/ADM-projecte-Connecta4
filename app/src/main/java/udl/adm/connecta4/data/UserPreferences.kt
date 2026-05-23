@@ -11,8 +11,8 @@ import androidx.datastore.preferences.preferencesDataStore
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
 
 object UserPreferences {
-    val ALIAS_KEY     = stringPreferencesKey("alias")
+    val ALIAS_KEY = stringPreferencesKey("alias")
     val GRID_SIZE_KEY = intPreferencesKey("grid_size")
-    val HAS_TIME_KEY  = booleanPreferencesKey("has_time")
-    val MAX_TIME_KEY  = intPreferencesKey("max_time")
+    val HAS_TIME_KEY = booleanPreferencesKey("has_time")
+    val MAX_TIME_KEY = intPreferencesKey("max_time")
 }

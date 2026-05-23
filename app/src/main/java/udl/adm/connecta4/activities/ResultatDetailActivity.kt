@@ -10,14 +10,14 @@ class ResultatDetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val logText = intent.getStringExtra("LOG_TEXT") ?: ""
-        val date    = intent.getStringExtra("DATE")     ?: ""
+        val date = intent.getStringExtra("DATE") ?: ""
 
         setContent {
             Connecta4Theme {
                 ResultatDetailScreen(
                     logText = logText,
-                    date    = date,
-                    onBack  = { finish() }
+                    date = date,
+                    onBack = { finish() }
                 )
             }
         }

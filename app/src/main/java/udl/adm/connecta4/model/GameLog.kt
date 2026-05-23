@@ -16,6 +16,7 @@ class GameLog(
                 sb.append("Has guanyat !!\n")
                 if (timeRemaining != null) sb.append("Han sobrat $timeRemaining secs. !")
             }
+
             is GameState.SystemWins -> sb.append("Has perdut !!\n")
             is GameState.Draw -> sb.append("Heu empatat !!\n")
             is GameState.TimeOut -> sb.append("Has esgotat el temps!!\n")

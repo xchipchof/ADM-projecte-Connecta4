@@ -23,15 +23,15 @@ class MainActivity : ComponentActivity() {
                     },
                     onComencarClick = {
                         lifecycleScope.launch {
-                            val prefs   = dataStore.data.first()
-                            val alias   = prefs[UserPreferences.ALIAS_KEY]     ?: "Jugador"
-                            val size    = prefs[UserPreferences.GRID_SIZE_KEY] ?: 7
-                            val hasTime = prefs[UserPreferences.HAS_TIME_KEY]  ?: false
-                            val maxTime = prefs[UserPreferences.MAX_TIME_KEY]  ?: 25
+                            val prefs = dataStore.data.first()
+                            val alias = prefs[UserPreferences.ALIAS_KEY] ?: "Jugador"
+                            val size = prefs[UserPreferences.GRID_SIZE_KEY] ?: 7
+                            val hasTime = prefs[UserPreferences.HAS_TIME_KEY] ?: false
+                            val maxTime = prefs[UserPreferences.MAX_TIME_KEY] ?: 25
                             startActivity(
                                 Intent(this@MainActivity, JocActivity::class.java).apply {
-                                    putExtra("ALIAS",    alias)
-                                    putExtra("SIZE",     size)
+                                    putExtra("ALIAS", alias)
+                                    putExtra("SIZE", size)
                                     putExtra("HAS_TIME", hasTime)
                                     putExtra("MAX_TIME", maxTime)
                                 }

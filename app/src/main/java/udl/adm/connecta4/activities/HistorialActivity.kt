@@ -22,13 +22,13 @@ class HistorialActivity : ComponentActivity() {
             Connecta4Theme {
                 val windowSizeClass = calculateWindowSizeClass(this)
                 HistorialScreen(
-                    viewModel       = historialViewModel,
+                    viewModel = historialViewModel,
                     windowSizeClass = windowSizeClass,
-                    onRecordClick   = { record ->
+                    onRecordClick = { record ->
                         startActivity(
                             Intent(this, ResultatDetailActivity::class.java).apply {
                                 putExtra("LOG_TEXT", record.logText)
-                                putExtra("DATE",     record.date)
+                                putExtra("DATE", record.date)
                             }
                         )
                     },

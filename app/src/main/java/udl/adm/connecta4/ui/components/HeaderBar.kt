@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,8 +84,8 @@ private fun TimerDisplay(timeElapsed: Int, hasTime: Boolean, maxTime: Int) {
     val isUrgent = hasTime && timeLeft <= 10
     val timerColor = when {
         isUrgent -> MaterialTheme.colorScheme.error
-        hasTime  -> MaterialTheme.colorScheme.onSurface
-        else     -> MaterialTheme.colorScheme.onSurfaceVariant
+        hasTime -> MaterialTheme.colorScheme.onSurface
+        else -> MaterialTheme.colorScheme.onSurfaceVariant
     }
 
     Column(horizontalAlignment = Alignment.End) {

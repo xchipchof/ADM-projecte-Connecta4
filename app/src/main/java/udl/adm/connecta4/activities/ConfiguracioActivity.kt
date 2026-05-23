@@ -18,7 +18,7 @@ class ConfiguracioActivity : ComponentActivity() {
             Connecta4Theme {
                 ConfiguracioScreen(
                     configViewModel = configViewModel,
-                    onSave          = { finish() }
+                    onSave = { finish() }
                 )
             }
         }

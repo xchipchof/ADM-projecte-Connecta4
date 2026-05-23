@@ -30,10 +30,10 @@ class Board(val size: Int) {
         for (r in 0 until size) {
             for (c in 0 until size) {
                 if (grid[r][c] != player) continue
-                if (c + 3 < size && grid[r][c+1] == player && grid[r][c+2] == player && grid[r][c+3] == player) return true
-                if (r + 3 < size && grid[r+1][c] == player && grid[r+2][c] == player && grid[r+3][c] == player) return true
-                if (r + 3 < size && c + 3 < size && grid[r+1][c+1] == player && grid[r+2][c+2] == player && grid[r+3][c+3] == player) return true
-                if (r + 3 < size && c - 3 >= 0 && grid[r+1][c-1] == player && grid[r+2][c-2] == player && grid[r+3][c-3] == player) return true
+                if (c + 3 < size && grid[r][c + 1] == player && grid[r][c + 2] == player && grid[r][c + 3] == player) return true
+                if (r + 3 < size && grid[r + 1][c] == player && grid[r + 2][c] == player && grid[r + 3][c] == player) return true
+                if (r + 3 < size && c + 3 < size && grid[r + 1][c + 1] == player && grid[r + 2][c + 2] == player && grid[r + 3][c + 3] == player) return true
+                if (r + 3 < size && c - 3 >= 0 && grid[r + 1][c - 1] == player && grid[r + 2][c - 2] == player && grid[r + 3][c - 3] == player) return true
             }
         }
         return false
